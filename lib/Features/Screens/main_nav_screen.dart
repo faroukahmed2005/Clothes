@@ -1,4 +1,4 @@
-import 'package:scroll_bottom_navigation_bar/scroll_bottom_navigation_bar.dart';
+import 'package:clothes/Core/Healpers/app_colors.dart';
 import 'package:clothes/Features/Screens/Account/account_screen.dart';
 import 'package:clothes/Features/Screens/Cart/cart_screen.dart';
 import 'package:clothes/Features/Screens/Home/home_screen.dart';
@@ -12,8 +12,7 @@ class MainNavScreen extends StatefulWidget {
 }
 
 class _MainNavScreenState extends State<MainNavScreen> {
-  final ScrollController controller = ScrollController();
-
+  int currentIndex = 0;
 
   final List<Widget> pages = const [
     HomeScreen(),
@@ -22,20 +21,25 @@ class _MainNavScreenState extends State<MainNavScreen> {
   ];
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder<int>(
-        valueListenable: controller.bottomNavigationBar.tabNotifier,
-        builder: (context, tabIndex, child) => pages[tabIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: pages,
       ),
-      bottomNavigationBar: ScrollBottomNavigationBar(
-        controller: controller,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: AppColors.whiteColor,
+        selectedItemColor: AppColors.primaryColor,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        elevation: 8,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
