@@ -5,10 +5,11 @@ import 'package:clothes/Core/Healpers/app_field.dart';
 import 'package:clothes/Core/Healpers/app_password_field.dart';
 import 'package:clothes/Core/Healpers/app_styles.dart';
 import 'package:clothes/Core/Healpers/app_toster.dart';
-import 'package:clothes/Features/Screens/Home/home_screen.dart';
 import 'package:clothes/Features/Screens/Login/login_cubit.dart';
+import 'package:clothes/Features/Screens/main_nav_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clothes/Features/Screens/SignUp/sign_up_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (_) => const HomeScreen(),
+                builder: (_) => const MainNavScreen(),
               ),
             );
           }
@@ -97,6 +98,37 @@ class LoginScreen extends StatelessWidget {
                             cubit.login();
                           },
                         ),
+
+                  const SizedBox(height: 16),
+
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SignUpScreen(),
+                          ),
+                        );
+                      },
+                      child: RichText(
+                        text: const TextSpan(
+                          style: TextStyle(color: Colors.black),
+                          children: [
+                            TextSpan(text: "Don’t have an account? "),
+                            TextSpan(
+                              text: "Join",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
             ),
