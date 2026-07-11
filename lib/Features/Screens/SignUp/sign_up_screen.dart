@@ -69,7 +69,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  Text("User Name", style: AppStyles.kText16blackBold),
+                  Text("Email", style: AppStyles.kText16blackBold),
                   const SizedBox(height: 12),
                   AppField(
                     controller: cubit.userEmailControl,
