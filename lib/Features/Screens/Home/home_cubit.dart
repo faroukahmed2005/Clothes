@@ -42,20 +42,34 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void filterByCategory(int? categoryId) {
+  Future<void> filterByCategory(int? categoryId) async {
     selectedCategoryId = categoryId;
 
     if (categoryId == null) {
       emit(HomeSuccess(allProducts));
-    } else {
-      emit(
-        HomeSuccess(
-          allProducts.where((p) => p.category?.id == categoryId).toList(),
-        ),
+      return;
+    }
+
+    try {
+      emit(HomeLoading());
+
+      final Response response = await dio.get(
+        'https://api.escuelajs.co/api/v1/products/?categoryId=$categoryId',
       );
+
+      final products = (response.data as List)
+          .map((e) => ProductModel.fromJson(e))
+          .toList();
+
+      emit(HomeSuccess(products));
+    } on DioException catch (e) {
+      emit(HomeFailure(e.message ?? 'Error'));
+    } catch (e) {
+      emit(HomeFailure(e.toString()));
     }
   }
 
+  
   Future<void> search(String title) async {
     if (title.trim().isEmpty) {
       emit(HomeSuccess(allProducts));
