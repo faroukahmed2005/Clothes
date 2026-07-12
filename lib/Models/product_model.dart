@@ -27,8 +27,6 @@ class ProductModel {
     images = json['images'] != null ? List<String>.from(json['images']) : [];
   }
 
-  // Some images returned by the API come wrapped like ["https://...\"]"]
-  // this helper strips stray quotes/brackets so Image.network doesn't fail.
   String get firstImage {
     if (images == null || images!.isEmpty) {
       return 'https://placehold.co/400x400';
