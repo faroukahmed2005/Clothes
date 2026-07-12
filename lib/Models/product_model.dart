@@ -22,8 +22,7 @@ class ProductModel {
     title = json['title'];
     price = json['price'];
     description = json['description'];
-    category =
-        json['category'] != null ? CategoryModel.fromJson(json['category']) : null;
+    category = json['category'] != null ? CategoryModel.fromJson(json['category']) : null;
     images = json['images'] != null ? List<String>.from(json['images']) : [];
   }
 
